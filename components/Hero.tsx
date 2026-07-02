@@ -10,8 +10,10 @@ export default function Hero() {
   useEffect(() => {
     const v = videoRef.current;
     if (!v) return;
-    v.muted = true; // set on the DOM element — React's muted prop is unreliable in Safari
-    v.play().catch(() => {}); // catch blocks autoplay rejection silently
+    v.setAttribute("muted", "");
+    v.defaultMuted = true;
+    v.muted = true;
+    v.play().catch(() => {});
   }, []);
 
   return (
@@ -39,6 +41,11 @@ export default function Hero() {
         playsInline
         preload="auto"
         aria-hidden="true"
+        onCanPlay={(e) => {
+          const v = e.currentTarget;
+          v.muted = true;
+          if (v.paused) v.play().catch(() => {});
+        }}
         style={{
           position: "absolute",
           inset: 0,
