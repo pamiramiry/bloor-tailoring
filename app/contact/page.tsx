@@ -72,9 +72,6 @@ export default function ContactPage() {
             maxWidth: "1320px",
             margin: "0 auto",
             display: "grid",
-            gridTemplateColumns: "1fr 1.5fr",
-            gap: "6rem",
-            alignItems: "start",
           }}
           className="contact-grid"
         >

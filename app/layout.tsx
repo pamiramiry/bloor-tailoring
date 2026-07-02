@@ -24,7 +24,7 @@ export const metadata: Metadata = {
 
 const jsonLd = {
   "@context": "https://schema.org",
-  "@type": "LocalBusiness",
+  "@type": "TailorShop",
   name: "Bloor Tailoring",
   description:
     "Expert tailor in Toronto offering custom suits, alterations, wedding gown fittings, and repairs.",
@@ -38,11 +38,53 @@ const jsonLd = {
     postalCode: "M6S 4W1",
     addressCountry: "CA",
   },
+  geo: {
+    "@type": "GeoCoordinates",
+    latitude: 43.6497,
+    longitude: -79.4742,
+  },
+  openingHoursSpecification: [
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      opens: "10:30",
+      closes: "18:00",
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Saturday"],
+      opens: "10:30",
+      closes: "17:00",
+    },
+  ],
   aggregateRating: {
     "@type": "AggregateRating",
     ratingValue: "4.7",
     reviewCount: "70",
   },
+  review: [
+    {
+      "@type": "Review",
+      reviewRating: { "@type": "Rating", ratingValue: "5" },
+      author: { "@type": "Person", name: "R.P." },
+      reviewBody:
+        "I had a wedding dress that did not fit me and I even tore it a little trying it on. You would never know adjustments had been made!",
+    },
+    {
+      "@type": "Review",
+      reviewRating: { "@type": "Rating", ratingValue: "5" },
+      author: { "@type": "Person", name: "Molly H." },
+      reviewBody:
+        "Svetlana and Armin did an amazing job on hemming, bustling, and tightening my wedding dress. These are professionals who deliver amazing outcomes at very fair prices.",
+    },
+    {
+      "@type": "Review",
+      reviewRating: { "@type": "Rating", ratingValue: "5" },
+      author: { "@type": "Person", name: "Marilyn T." },
+      reviewBody:
+        "Armin was super wonderful and patient. What Armin added to my coat was spectacular. Anyone would be delighted in his workmanship.",
+    },
+  ],
   priceRange: "$$$",
   hasOfferCatalog: {
     "@type": "OfferCatalog",
@@ -62,6 +104,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className="h-full">
       <head>
+        <script dangerouslySetInnerHTML={{ __html: "if(history.scrollRestoration)history.scrollRestoration='manual';" }} />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link

@@ -25,15 +25,7 @@ export default function ProcessStrip() {
           Our Process
         </p>
 
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1px 1fr 1px 1fr",
-            gap: "0",
-            alignItems: "start",
-          }}
-          className="process-grid"
-        >
+        <div style={{ display: "grid" }} className="process-grid">
           {steps.map((step, i) => (
             <Fragment key={step.num}>
               <div

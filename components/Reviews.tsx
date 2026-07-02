@@ -70,14 +70,7 @@ export default function Reviews() {
         </div>
 
         {/* Review grid */}
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(3, 1fr)",
-            gap: "3rem",
-          }}
-          className="reviews-grid"
-        >
+        <div className="reviews-grid">
           {reviews.map((review) => (
             <blockquote
               key={review.author}
@@ -138,6 +131,28 @@ export default function Reviews() {
               </footer>
             </blockquote>
           ))}
+        </div>
+
+        {/* Google Reviews link */}
+        <div style={{ textAlign: "center", marginTop: "3.5rem" }}>
+          <a
+            href="https://www.google.com/maps/search/Bloor+Tailoring+2323+Bloor+St+W+Toronto"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="google-reviews-link"
+            style={{
+              fontFamily: "var(--font-label)",
+              fontWeight: 300,
+              fontSize: "0.55rem",
+              letterSpacing: "0.2em",
+              textTransform: "uppercase",
+              color: "var(--color-gold)",
+              textDecoration: "none",
+            }}
+          >
+            <span aria-hidden="true">★★★★★</span>
+            &nbsp;&nbsp;Read all 70+ reviews on Google &nbsp;→
+          </a>
         </div>
       </div>
     </section>

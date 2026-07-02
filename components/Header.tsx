@@ -1,12 +1,13 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Logo from "./Logo";
 
 const navLinks = [
   { href: "/services", label: "Services" },
+  { href: "/gallery", label: "Gallery" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
 ];
@@ -15,6 +16,9 @@ export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
+  const menuRef = useRef<HTMLDivElement>(null);
+  const hamburgerRef = useRef<HTMLButtonElement>(null);
+  const hasOpenedRef = useRef(false);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 80);
@@ -29,6 +33,32 @@ export default function Header() {
   useEffect(() => {
     document.body.style.overflow = menuOpen ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
+  }, [menuOpen]);
+
+  useEffect(() => {
+    if (!menuOpen) {
+      if (hasOpenedRef.current) hamburgerRef.current?.focus();
+      return;
+    }
+    hasOpenedRef.current = true;
+    const menu = menuRef.current;
+    if (!menu) return;
+    const focusable = Array.from(
+      menu.querySelectorAll<HTMLElement>("a, button")
+    );
+    focusable[0]?.focus();
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key !== "Tab") return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey) {
+        if (document.activeElement === first) { e.preventDefault(); last?.focus(); }
+      } else {
+        if (document.activeElement === last) { e.preventDefault(); first?.focus(); }
+      }
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
   }, [menuOpen]);
 
   return (
@@ -61,8 +91,8 @@ export default function Header() {
 
           {/* Desktop nav */}
           <nav
-            style={{ display: "flex", alignItems: "center", gap: "2.5rem" }}
-            className="hidden md:flex"
+            style={{ alignItems: "center", gap: "2.5rem" }}
+            className="nav-desktop"
             aria-label="Main navigation"
           >
             {navLinks.map((link) => (
@@ -100,16 +130,16 @@ export default function Header() {
 
           {/* Mobile hamburger */}
           <button
+            ref={hamburgerRef}
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label={menuOpen ? "Close menu" : "Open menu"}
             aria-expanded={menuOpen}
-            className="md:hidden"
+            className="nav-hamburger"
             style={{
               background: "none",
               border: "none",
               cursor: "pointer",
               padding: "0.5rem",
-              display: "flex",
               flexDirection: "column",
               gap: "5px",
             }}
@@ -150,6 +180,7 @@ export default function Header() {
 
       {/* Full-screen mobile menu */}
       <div
+        ref={menuRef}
         style={{
           position: "fixed",
           inset: 0,
@@ -159,7 +190,8 @@ export default function Header() {
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          gap: "2.5rem",
+          gap: "1.5rem",
+          overflowY: "auto",
           transition: "opacity 0.35s ease, visibility 0.35s ease",
           opacity: menuOpen ? 1 : 0,
           visibility: menuOpen ? "visible" : "hidden",
@@ -195,7 +227,7 @@ export default function Header() {
             style={{
               fontFamily: "var(--font-display)",
               fontWeight: 300,
-              fontSize: "clamp(2rem, 6vw, 3rem)",
+              fontSize: "clamp(1.75rem, 6vw, 3rem)",
               color: pathname === link.href ? "var(--color-gold)" : "var(--color-ivory)",
               textDecoration: "none",
               letterSpacing: "0.05em",

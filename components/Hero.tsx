@@ -20,14 +20,14 @@ export default function Hero() {
         overflow: "hidden",
       }}
     >
-      {/* Background video — desktop/tablet only, hidden on mobile + reduced-motion via CSS */}
+      {/* Background video */}
       <video
-        className="hero-video"
         autoPlay
         loop
         muted
         playsInline
         preload="metadata"
+        aria-hidden="true"
         style={{
           position: "absolute",
           inset: 0,
@@ -43,7 +43,6 @@ export default function Hero() {
 
       {/* Dark overlay — keeps text legible over the video */}
       <div
-        className="hero-video"
         style={{
           position: "absolute",
           inset: 0,
@@ -54,7 +53,6 @@ export default function Hero() {
 
       {/* Radial vignette — extra darkening at the edges, clean center */}
       <div
-        className="hero-video"
         style={{
           position: "absolute",
           inset: 0,
@@ -137,6 +135,8 @@ export default function Hero() {
           style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "2rem" }}
         >
           <p
+            aria-label="Precision · Fit · Craft"
+            role="text"
             style={{
               fontFamily: "var(--font-label)",
               fontWeight: 300,

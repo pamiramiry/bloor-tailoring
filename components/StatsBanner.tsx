@@ -11,13 +11,7 @@ export default function StatsBanner() {
   return (
     <section style={{ background: "var(--color-void)", padding: "3.5rem 2rem" }}>
       <div
-        style={{
-          maxWidth: "1320px",
-          margin: "0 auto",
-          display: "grid",
-          gridTemplateColumns: "1fr 1px 1fr 1px 1fr 1px 1fr",
-          alignItems: "center",
-        }}
+        style={{ maxWidth: "1320px", margin: "0 auto", display: "grid" }}
         className="stats-grid"
       >
         {stats.map((stat, i) => (

@@ -78,9 +78,6 @@ export default function AboutPage() {
             maxWidth: "1320px",
             margin: "0 auto",
             display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gap: "6rem",
-            alignItems: "start",
           }}
           className="about-grid"
         >

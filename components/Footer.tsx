@@ -3,6 +3,7 @@ import Logo from "./Logo";
 
 const navLinks = [
   { href: "/services", label: "Services" },
+  { href: "/gallery", label: "Gallery" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
 ];
@@ -18,7 +19,6 @@ export default function Footer() {
           margin: "0 auto",
           padding: "5rem 2rem 3rem",
           display: "grid",
-          gridTemplateColumns: "repeat(3, 1fr)",
           gap: "3rem",
         }}
         className="footer-grid"

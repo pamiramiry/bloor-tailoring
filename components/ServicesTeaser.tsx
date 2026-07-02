@@ -13,17 +13,12 @@ export default function ServicesTeaser() {
       style={{
         background: "var(--color-paper)",
         padding: "7rem 2rem",
+        position: "relative",
+        overflow: "hidden",
       }}
     >
       <div
-        style={{
-          maxWidth: "1320px",
-          margin: "0 auto",
-          display: "grid",
-          gridTemplateColumns: "55fr 45fr",
-          gap: "5rem",
-          alignItems: "start",
-        }}
+        style={{ maxWidth: "1320px", margin: "0 auto", display: "grid" }}
         className="services-teaser-grid"
       >
         {/* Left: pull quote */}

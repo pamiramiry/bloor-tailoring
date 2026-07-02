@@ -28,6 +28,7 @@ body {
   font-weight: 300;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
 
 *:focus-visible {
@@ -56,20 +57,20 @@ body {
 /* Stats banner + reviews responsive */
 @media (max-width: 640px) {
   .stats-grid {
-    grid-template-columns: 1fr 1fr !important;
-    gap: 2rem 0 !important;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem 0;
   }
   .stats-divider {
     display: none !important;
   }
   .reviews-grid {
-    grid-template-columns: 1fr !important;
-    gap: 3rem !important;
+    grid-template-columns: 1fr;
+    gap: 3rem;
   }
 }
 @media (min-width: 641px) and (max-width: 900px) {
   .reviews-grid {
-    grid-template-columns: 1fr 1fr !important;
+    grid-template-columns: 1fr 1fr;
   }
 }
 
@@ -89,35 +90,55 @@ body {
   color: var(--color-ivory) !important;
 }
 
-/* Gallery carousel arrow hover */
-.gallery-arrow:hover {
-  color: var(--color-ivory) !important;
+/* ── Grid base layouts (desktop) ── */
+/* Defined here so media-query overrides below don't fight inline styles */
+.stats-grid {
+  grid-template-columns: 1fr 1px 1fr 1px 1fr 1px 1fr;
+  align-items: center;
+}
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3rem;
+}
+.process-grid {
+  grid-template-columns: 1fr 1px 1fr 1px 1fr;
+  gap: 0;
+  align-items: start;
+}
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+.services-teaser-grid {
+  grid-template-columns: 55fr 45fr;
+  gap: 5rem;
+  align-items: start;
+}
+.footer-grid {
+  grid-template-columns: repeat(3, 1fr);
+}
+.about-grid {
+  grid-template-columns: 1fr 1fr;
+  gap: 6rem;
+  align-items: start;
+}
+.contact-grid {
+  grid-template-columns: 1fr 1.5fr;
+  gap: 6rem;
+  align-items: start;
 }
 
-/* Gallery active slide — hover zoom on image */
-.gallery-photo-active img {
-  transition: transform 0.6s cubic-bezier(0.25, 0.1, 0, 1);
-}
-.gallery-photo-active:hover img {
-  transform: scale(1.03);
-}
-
-/* Services teaser + photo grid responsive */
+/* ── Responsive overrides ── */
 @media (max-width: 768px) {
   .services-teaser-grid {
-    grid-template-columns: 1fr !important;
-    gap: 3rem !important;
-  }
-  .photo-grid {
-    grid-template-columns: 1fr !important;
-    grid-template-rows: auto !important;
-  }
-  .photo-grid > div:first-child {
-    grid-row: auto !important;
+    grid-template-columns: 1fr;
+    gap: 3rem;
   }
   .process-grid {
-    grid-template-columns: 1fr !important;
-    gap: 2.5rem !important;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
   }
   .process-divider {
     display: none !important;
@@ -134,26 +155,6 @@ body {
 }
 .category-link:hover .category-title {
   color: var(--color-gold) !important;
-}
-
-/* CTA outline button — on light bg (dark border/text) */
-.cta-outline-btn {
-  font-family: var(--font-label);
-  font-weight: 300;
-  font-size: 0.65rem;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--color-void);
-  text-decoration: none;
-  border: 1px solid var(--color-void);
-  padding: 0.9rem 2.5rem;
-  display: inline-block;
-  transition: background 0.35s ease, color 0.35s ease, border-color 0.35s ease;
-}
-.cta-outline-btn:hover {
-  background: var(--color-gold);
-  color: var(--color-void);
-  border-color: var(--color-gold);
 }
 
 /* CTA outline button — on dark bg (ivory border/text) */
@@ -176,11 +177,24 @@ body {
   border-color: var(--color-gold);
 }
 
-/* Services list responsive */
+
+/* Services list grid — desktop layout defined here, not inline */
+.services-list-grid {
+  grid-template-columns: 1fr 2fr;
+  gap: 5rem;
+  align-items: start;
+}
+.services-sticky-col {
+  position: sticky;
+  top: 7rem;
+}
 @media (max-width: 900px) {
   .services-list-grid {
     grid-template-columns: 1fr !important;
     gap: 2.5rem !important;
+  }
+  .services-sticky-col {
+    position: static;
   }
   .services-items-grid {
     grid-template-columns: 1fr !important;
@@ -190,21 +204,16 @@ body {
 /* About + contact responsive */
 @media (max-width: 768px) {
   .about-grid {
-    grid-template-columns: 1fr !important;
-    gap: 3rem !important;
+    grid-template-columns: 1fr;
+    gap: 3rem;
   }
   .contact-grid {
-    grid-template-columns: 1fr !important;
-    gap: 3rem !important;
+    grid-template-columns: 1fr;
+    gap: 3rem;
   }
   .form-row {
-    grid-template-columns: 1fr !important;
+    grid-template-columns: 1fr;
   }
-}
-
-/* Hero background video — hide on mobile and for reduced-motion users */
-@media (prefers-reduced-motion: reduce) {
-  .hero-video { display: none !important; }
 }
 
 /* Hero wordmark mobile overflow fix */
@@ -215,11 +224,114 @@ body {
   }
 }
 
+/* ── Gallery grid ── */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3px;
+}
+.gallery-tile {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  background: var(--color-surface);
+}
+.gallery-tile-featured {
+  position: relative;
+  overflow: hidden;
+  grid-column: span 2;
+  aspect-ratio: 16 / 9;
+  background: var(--color-surface);
+}
+/* Full-bleed variant: no horizontal padding */
+.gallery-grid-bleed {
+  padding: 0;
+}
+.gallery-tile-btn {
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  background: none;
+  display: block;
+  text-align: left;
+}
+.gallery-tile-btn:focus-visible {
+  outline: 1px solid var(--color-gold);
+  outline-offset: 2px;
+  z-index: 1;
+}
+
+/* Caption overlay — appears on hover */
+.gallery-tile-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1rem 1.25rem;
+  background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 100%);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  pointer-events: none;
+}
+.gallery-tile-btn:hover .gallery-tile-caption,
+.gallery-tile-btn:focus-visible .gallery-tile-caption {
+  opacity: 1;
+}
+
+@media (max-width: 1024px) {
+  .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+  .gallery-tile-featured { grid-column: 1 / -1; aspect-ratio: 16 / 9; }
+}
+@media (max-width: 640px) {
+  .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 3px; }
+  .gallery-tile { aspect-ratio: 3 / 4; }
+  .gallery-tile-featured { grid-column: 1 / -1; aspect-ratio: 16 / 9; }
+}
+
+/* Reduced motion: no caption hover transition */
+@media (prefers-reduced-motion: reduce) {
+  .gallery-tile-caption { transition: none; }
+}
+
+/* Filter pills */
+.gallery-filter-pill {
+  font-family: var(--font-label);
+  font-weight: 300;
+  font-size: 0.55rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  border: 1px solid rgba(138,133,128,0.3);
+  background: none;
+  color: var(--color-muted);
+  padding: 0.5rem 1.25rem;
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+.gallery-filter-pill:hover {
+  border-color: rgba(184,154,94,0.5);
+  color: var(--color-gold);
+}
+.gallery-filter-pill-active {
+  border-color: var(--color-gold) !important;
+  color: var(--color-gold) !important;
+}
+
+/* Google Reviews link hover */
+.google-reviews-link:hover { text-decoration: underline; text-underline-offset: 3px; }
+
 /* Call Now sticky bar — hidden by default, visible on mobile only */
 .call-now-bar { display: none; }
 @media (max-width: 768px) {
   .call-now-bar { display: flex; }
   body { padding-bottom: 56px; }
+}
+
+/* Header responsive — desktop nav vs hamburger */
+.nav-desktop { display: none; }
+.nav-hamburger { display: flex; }
+@media (min-width: 768px) {
+  .nav-desktop { display: flex; }
+  .nav-hamburger { display: none; }
 }
 
 /* Footer responsive */

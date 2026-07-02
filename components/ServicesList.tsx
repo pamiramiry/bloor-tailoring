@@ -18,14 +18,11 @@ export default function ServicesList() {
               maxWidth: "1320px",
               margin: "0 auto",
               display: "grid",
-              gridTemplateColumns: "1fr 2fr",
-              gap: "5rem",
-              alignItems: "start",
             }}
             className="services-list-grid"
           >
             {/* Left: category heading */}
-            <div style={{ position: "sticky", top: "7rem" }}>
+            <div className="services-sticky-col">
               <p
                 style={{
                   fontFamily: "var(--font-label)",
