@@ -1,9 +1,19 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 
 export default function Hero() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v) return;
+    v.muted = true; // set on the DOM element — React's muted prop is unreliable in Safari
+    v.play().catch(() => {}); // catch blocks autoplay rejection silently
+  }, []);
+
   return (
     <section
       aria-label="Hero"
@@ -22,11 +32,12 @@ export default function Hero() {
     >
       {/* Background video */}
       <video
+        ref={videoRef}
         autoPlay
         loop
         muted
         playsInline
-        preload="metadata"
+        preload="auto"
         aria-hidden="true"
         style={{
           position: "absolute",
